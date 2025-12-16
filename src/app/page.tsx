@@ -10,8 +10,8 @@ export default function Home() {
     <div className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(250,250,250,0.08),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(15,23,42,0.9),_transparent_65%)]" />
 
-      <section className="mx-auto flex min-h-[calc(100vh-4.5rem)] max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] flex-col gap-14 px-4 pb-16 pt-5 md:flex-row md:items-center md:px-8 md:pb-10 md:pt-8">
-        <div className="flex-1 space-y-8 animate-fade-in-up">
+      <section className="mx-auto flex max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] flex-col gap-14 px-4 pb-6 pt-5 md:min-h-[calc(100vh-4.5rem)] md:flex-row md:items-center md:px-8 md:pb-10 md:pt-8">
+        <div className="flex min-h-[calc(100vh-4.5rem)] flex-1 flex-col gap-8 justify-between animate-fade-in-up md:min-h-0 md:justify-center">
           <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-zinc-700/80 bg-black/60 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-200 sm:text-[11px]">
             <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white" />
             <span className="break-words text-[10px] text-zinc-200 sm:text-xs">
