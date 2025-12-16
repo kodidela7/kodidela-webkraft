@@ -9,7 +9,7 @@ export default function ContactPage() {
   const copy = CONTACT_COPY[language] ?? CONTACT_COPY.en;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-16 px-4 py-10 md:px-8 md:py-16">
+    <div className="mx-auto max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] space-y-16 px-4 py-10 md:px-8 md:py-16">
       <section className="space-y-4 text-center">
         <h1 className="text-3xl font-semibold text-white md:text-4xl">
           {copy.hero.title}

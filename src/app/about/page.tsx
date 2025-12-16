@@ -7,7 +7,7 @@ export default function AboutPage() {
   const { aboutCopy: copy } = useLanguage();
 
   return (
-    <div className="mx-auto max-w-6xl space-y-16 px-4 py-10 md:px-8 md:py-16">
+    <div className="mx-auto max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] space-y-16 px-4 py-10 md:px-8 md:py-16">
       <section className="grid gap-10 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1.2fr)]">
         <div className="space-y-5">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
