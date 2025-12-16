@@ -10,48 +10,52 @@ export default function Home() {
     <div className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(250,250,250,0.08),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(15,23,42,0.9),_transparent_65%)]" />
 
-      <section className="mx-auto flex max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] flex-col gap-14 px-4 pb-6 pt-5 md:min-h-[calc(100vh-4.5rem)] md:flex-row md:items-center md:px-8 md:pb-10 md:pt-8">
-        <div className="flex min-h-[calc(100vh-4.5rem)] flex-1 flex-col gap-8 justify-between animate-fade-in-up md:min-h-0 md:justify-center">
-          <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-zinc-700/80 bg-black/60 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-200 sm:text-[11px]">
-            <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white" />
-            <span className="break-words text-[10px] text-zinc-200 sm:text-xs">
-              {homeCopy.hero.tag}
-            </span>
-          </div>
-
-          <div className="space-y-5">
-            <h1 className="text-balance text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-[2.75rem]">
-              {homeCopy.hero.title}
-            </h1>
-            <p className="max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base">
-              {homeCopy.hero.subtitle}
-            </p>
-          </div>
-
-          <div className="grid gap-3 text-xs text-zinc-100 sm:grid-cols-2 sm:text-[13px]">
-            {homeCopy.hero.bullets.map((item) => (
-              <div key={item} className="flex items-start gap-2">
-                <span className="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full border border-zinc-600 bg-black text-[9px] text-zinc-200">
-                  ●
+      <section className="mx-auto flex min-h-[calc(100vh-4.5rem)] max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] flex-col gap-14 px-4 pb-16 pt-5 md:flex-row md:items-center md:px-8 md:pb-10 md:pt-8">
+        <div className="flex-1 animate-fade-in-up">
+          <div className="flex min-h-[calc(100vh-4.5rem)] flex-col justify-between space-y-8 md:min-h-0">
+            <div className="space-y-8">
+              <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-zinc-700/80 bg-black/60 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-200 sm:text-[11px]">
+                <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white" />
+                <span className="break-words text-[10px] text-zinc-200 sm:text-xs">
+                  {homeCopy.hero.tag}
                 </span>
-                <p className="leading-snug text-zinc-200">{item}</p>
               </div>
-            ))}
-          </div>
 
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-            <a
-              href="/contact?type=quote"
-              className="inline-flex items-center justify-center rounded-full bg-white px-7 py-2.5 text-sm font-semibold text-black shadow-[0_20px_60px_rgba(0,0,0,0.8)] transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
-            >
-              {homeCopy.hero.primaryCta}
-            </a>
-            <a
-              href="/services"
-              className="inline-flex items-center justify-center rounded-full border border-zinc-700 px-6 py-2.5 text-sm font-semibold text-zinc-100 shadow-sm transition hover:border-zinc-200 hover:bg-zinc-900/80"
-            >
-              {homeCopy.hero.secondaryCta}
-            </a>
+              <div className="space-y-5">
+                <h1 className="text-balance text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-[2.75rem]">
+                  {homeCopy.hero.title}
+                </h1>
+                <p className="max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base">
+                  {homeCopy.hero.subtitle}
+                </p>
+              </div>
+
+              <div className="grid gap-3 text-xs text-zinc-100 sm:grid-cols-2 sm:text-[13px]">
+                {homeCopy.hero.bullets.map((item) => (
+                  <div key={item} className="flex items-start gap-2">
+                    <span className="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full border border-zinc-600 bg-black text-[9px] text-zinc-200">
+                      ●
+                    </span>
+                    <p className="leading-snug text-zinc-200">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <a
+                href="/contact?type=quote"
+                className="inline-flex items-center justify-center rounded-full bg-white px-7 py-2.5 text-sm font-semibold text-black shadow-[0_20px_60px_rgba(0,0,0,0.8)] transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
+              >
+                {homeCopy.hero.primaryCta}
+              </a>
+              <a
+                href="/services"
+                className="inline-flex items-center justify-center rounded-full border border-zinc-700 px-6 py-2.5 text-sm font-semibold text-zinc-100 shadow-sm transition hover:border-zinc-200 hover:bg-zinc-900/80"
+              >
+                {homeCopy.hero.secondaryCta}
+              </a>
+            </div>
           </div>
         </div>
 
