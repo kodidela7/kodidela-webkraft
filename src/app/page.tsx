@@ -12,8 +12,8 @@ export default function Home() {
 
       <section className="mx-auto flex min-h-[calc(100vh-4.5rem)] max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] flex-col gap-14 px-4 pb-16 pt-5 md:flex-row md:items-center md:px-8 md:pb-10 md:pt-8">
         <div className="flex-1 animate-fade-in-up">
-          <div className="flex min-h-[calc(100vh-4.5rem)] flex-col justify-between space-y-8 md:min-h-0">
-            <div className="space-y-8">
+          <div className="flex min-h-[calc(100vh-4.5rem)] flex-col justify-between space-y-6 md:min-h-0">
+            <div className="space-y-6">
               <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-zinc-700/80 bg-black/60 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-200 sm:text-[11px]">
                 <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white" />
                 <span className="break-words text-[10px] text-zinc-200 sm:text-xs">
@@ -40,9 +40,22 @@ export default function Home() {
                   </div>
                 ))}
               </div>
+
+              {/* Mobile bug guarantee card under bullets */}
+              <div className="mt-1 rounded-2xl border border-zinc-800 bg-black/70 p-3 text-[11px] text-zinc-200 shadow-[0_18px_70px_rgba(0,0,0,0.9)] md:hidden">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500">
+                  {homeCopy.bugCard.label}
+                </p>
+                <p className="mt-1 text-sm font-medium text-white">
+                  {homeCopy.bugCard.title}
+                </p>
+                <p className="mt-1 text-[11px] leading-relaxed text-zinc-400">
+                  {homeCopy.bugCard.description}
+                </p>
+              </div>
             </div>
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <a
                 href="/contact?type=quote"
                 className="inline-flex items-center justify-center rounded-full bg-white px-7 py-2.5 text-sm font-semibold text-black shadow-[0_20px_60px_rgba(0,0,0,0.8)] transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
@@ -87,7 +100,7 @@ export default function Home() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-2xl border border-zinc-800 bg-black/70 p-4 text-xs text-zinc-200 shadow-[0_18px_70px_rgba(0,0,0,0.9)]">
+              <div className="hidden rounded-2xl border border-zinc-800 bg-black/70 p-4 text-xs text-zinc-200 shadow-[0_18px_70px_rgba(0,0,0,0.9)] md:block">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500">
                   {homeCopy.bugCard.label}
                 </p>
