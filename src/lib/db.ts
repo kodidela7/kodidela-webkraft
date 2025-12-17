@@ -1,56 +1,49 @@
 import Database from "better-sqlite3";
-import { readFileSync, existsSync, mkdirSync } from "fs";
+import { readFileSync } from "fs";
 import { join } from "path";
 
 const dbPath = join(process.cwd(), "data", "referral.db");
-let db: Database.Database | null = null;
+
+// Use global variable to store database instance in development
+// to avoid creating multiple connections during HMR
+const globalWithDb = global as typeof globalThis & {
+  _db?: Database.Database;
+};
 
 export function getDatabase(): Database.Database {
-  if (!db) {
-    try {
-      // Ensure data directory exists with proper permissions
-      const dataDir = join(process.cwd(), "data");
-      if (!existsSync(dataDir)) {
-        mkdirSync(dataDir, { recursive: true, mode: 0o755 });
-        console.log(`Created data directory: ${dataDir}`);
-      }
+  if (!globalWithDb._db) {
+    // Ensure data directory exists
+    const fs = require("fs");
+    const dataDir = join(process.cwd(), "data");
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
 
-      // Create or open database
-      db = new Database(dbPath);
+    try {
+      console.log(`Initializing database at: ${dbPath}`);
+      const db = new Database(dbPath);
       db.pragma("journal_mode = WAL");
 
-      // Check if tables exist, if not initialize schema
-      const tablesExist = db
-        .prepare(
-          "SELECT name FROM sqlite_master WHERE type='table' AND name='referrers'"
-        )
-        .get();
+      // Initialize schema
+      const schema = readFileSync(
+        join(process.cwd(), "src", "lib", "schema.sql"),
+        "utf-8"
+      );
+      db.exec(schema);
 
-      if (!tablesExist) {
-        console.log("Initializing database schema...");
-        const schemaPath = join(process.cwd(), "src", "lib", "schema.sql");
-
-        if (!existsSync(schemaPath)) {
-          console.error(`Schema file not found: ${schemaPath}`);
-          throw new Error("Schema file not found");
-        }
-
-        const schema = readFileSync(schemaPath, "utf-8");
-        db.exec(schema);
-        console.log("Database schema initialized successfully");
-      }
+      globalWithDb._db = db;
     } catch (error) {
-      console.error("Database initialization error:", error);
+      console.error("Error initializing database:", error);
       throw error;
     }
   }
-  return db;
+  return globalWithDb._db;
 }
 
 export function closeDatabase() {
-  if (db) {
-    db.close();
-    db = null;
+  if (globalWithDb._db) {
+    globalWithDb._db.close();
+    globalWithDb._db = undefined;
   }
 }
 
