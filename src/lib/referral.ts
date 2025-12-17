@@ -18,7 +18,7 @@ export async function generateUniqueReferralCode(): Promise<string> {
     const maxAttempts = 10;
 
     while (attempts < maxAttempts) {
-        const existing = getOne("SELECT id FROM referrers WHERE referral_code = ?", [
+        const existing = await getOne("SELECT id FROM referrers WHERE referral_code = $1", [
             code,
         ]);
 

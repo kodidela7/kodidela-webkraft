@@ -15,8 +15,8 @@ export async function POST(request: NextRequest) {
         }
 
         // Find admin user
-        const admin = getOne<AdminUser>(
-            "SELECT * FROM admin_users WHERE email = ?",
+        const admin = await getOne<AdminUser>(
+            "SELECT * FROM admin_users WHERE email = $1",
             [data.email]
         );
 
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Update last login
-        runQuery("UPDATE admin_users SET last_login = CURRENT_TIMESTAMP WHERE id = ?", [
+        await runQuery("UPDATE admin_users SET last_login = CURRENT_TIMESTAMP WHERE id = $1", [
             admin.id,
         ]);
 

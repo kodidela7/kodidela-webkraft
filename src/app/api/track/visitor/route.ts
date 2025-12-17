@@ -34,26 +34,26 @@ export async function POST(request: NextRequest) {
         }
 
         // Check if visitor exists
-        const existingVisitor = getOne(
-            "SELECT id, page_views FROM visitors WHERE visitor_id = ?",
+        const existingVisitor = await getOne(
+            "SELECT id, page_views FROM visitors WHERE visitor_id = $1",
             [data.visitor_id]
         );
 
         if (existingVisitor) {
             // Update existing visitor
-            runQuery(
+            await runQuery(
                 `UPDATE visitors 
          SET page_views = page_views + 1,
              last_visit = CURRENT_TIMESTAMP,
-             ref_code = COALESCE(ref_code, ?)
-         WHERE visitor_id = ?`,
+             ref_code = COALESCE(ref_code, $1)
+         WHERE visitor_id = $2`,
                 [data.ref_code || null, data.visitor_id]
             );
         } else {
             // Insert new visitor
-            runQuery(
+            await runQuery(
                 `INSERT INTO visitors (visitor_id, ip, country, city, device, browser, os, ref_code, page_views)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)`,
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 1)`,
                 [
                     data.visitor_id,
                     ip || null,

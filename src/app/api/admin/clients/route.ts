@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const clients = getAll(`
+        const clients = await getAll(`
       SELECT c.*, l.project_type as original_project_type
       FROM clients c
       LEFT JOIN leads l ON c.lead_id = l.id
@@ -52,9 +52,9 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const result = runQuery(
+        const result = await runQuery(
             `INSERT INTO clients (name, email, phone, company, project_value, service_type, start_date, status)
-       VALUES (?, ?, ?, ?, ?, ?, ?, 'Active')`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7, 'Active') RETURNING id`,
             [
                 name,
                 email,
@@ -106,11 +106,11 @@ export async function PUT(request: NextRequest) {
             );
         }
 
-        runQuery(
+        await runQuery(
             `UPDATE clients 
-       SET name = ?, email = ?, phone = ?, company = ?, project_value = ?, 
-           service_type = ?, start_date = ?, status = ?
-       WHERE id = ?`,
+       SET name = $1, email = $2, phone = $3, company = $4, project_value = $5, 
+           service_type = $6, start_date = $7, status = $8
+       WHERE id = $9`,
             [
                 name,
                 email,

@@ -1,15 +1,16 @@
-import { getDatabase, runQuery } from "../src/lib/db";
+import { getOne, runQuery } from "../src/lib/db";
 import { hashPassword } from "../src/lib/auth";
+import * as dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 
 async function setupAdmin() {
     console.log("Setting up admin user...");
 
-    const db = getDatabase();
-
     // Check if admin already exists
-    const existingAdmin = db
-        .prepare("SELECT id FROM admin_users WHERE email = ?")
-        .get("admin@kodidela-webkraft.com");
+    const existingAdmin = await getOne(
+        "SELECT id FROM admin_users WHERE email = $1",
+        ["admin@kodidela-webkraft.com"]
+    );
 
     if (existingAdmin) {
         console.log("❌ Admin user already exists!");
@@ -21,8 +22,8 @@ async function setupAdmin() {
     const password = "admin123"; // Change this immediately after first login!
     const hashedPassword = await hashPassword(password);
 
-    runQuery(
-        "INSERT INTO admin_users (email, password_hash, role) VALUES (?, ?, ?)",
+    await runQuery(
+        "INSERT INTO admin_users (email, password_hash, role) VALUES ($1, $2, $3)",
         [email, hashedPassword, "admin"]
     );
 

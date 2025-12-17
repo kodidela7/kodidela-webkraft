@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
         const { searchParams } = new URL(request.url);
         const format = searchParams.get("format");
 
-        const payouts = getAll(`
+        const payouts = await getAll(`
       SELECT 
         p.*,
         r.name as referrer_name,
@@ -80,9 +80,9 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const result = runQuery(
+        const result = await runQuery(
             `INSERT INTO referral_payouts (referrer_id, client_id, amount, status, notes)
-       VALUES (?, ?, ?, 'Pending', ?)`,
+       VALUES ($1, $2, $3, 'Pending', $4) RETURNING id`,
             [referrer_id, client_id, amount, notes || null]
         );
 
@@ -116,10 +116,10 @@ export async function PUT(request: NextRequest) {
             );
         }
 
-        runQuery(
+        await runQuery(
             `UPDATE referral_payouts 
-       SET status = 'Paid', paid_at = CURRENT_TIMESTAMP, transaction_id = ?, notes = ?
-       WHERE id = ?`,
+       SET status = 'Paid', paid_at = CURRENT_TIMESTAMP, transaction_id = $1, notes = $2
+       WHERE id = $3`,
             [transaction_id || null, notes || null, id]
         );
 

@@ -17,14 +17,15 @@ export async function GET(request: NextRequest) {
         let query = "SELECT * FROM leads";
         const params: any[] = [];
         const conditions: string[] = [];
+        let pIdx = 1;
 
         if (status) {
-            conditions.push("status = ?");
+            conditions.push(`status = $${pIdx++}`);
             params.push(status);
         }
 
         if (ref_code) {
-            conditions.push("ref_code = ?");
+            conditions.push(`ref_code = $${pIdx++}`);
             params.push(ref_code);
         }
 
@@ -34,7 +35,7 @@ export async function GET(request: NextRequest) {
 
         query += " ORDER BY created_at DESC";
 
-        const leads = getAll(query, params);
+        const leads = await getAll(query, params);
 
         return NextResponse.json({ leads });
     } catch (error) {
@@ -63,7 +64,7 @@ export async function PUT(request: NextRequest) {
             );
         }
 
-        runQuery("UPDATE leads SET status = ? WHERE id = ?", [status, id]);
+        await runQuery("UPDATE leads SET status = $1 WHERE id = $2", [status, id]);
 
         return NextResponse.json({ success: true });
     } catch (error) {
@@ -93,16 +94,16 @@ export async function POST(request: NextRequest) {
         }
 
         // Get lead details
-        const lead = getOne<any>("SELECT * FROM leads WHERE id = ?", [lead_id]);
+        const lead = await getOne<any>("SELECT * FROM leads WHERE id = $1", [lead_id]);
 
         if (!lead) {
             return NextResponse.json({ error: "Lead not found" }, { status: 404 });
         }
 
         // Create client record
-        const result = runQuery(
+        const result = await runQuery(
             `INSERT INTO clients (lead_id, name, email, phone, company, project_value, service_type, ref_code, status)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Active')`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'Active') RETURNING id`,
             [
                 lead_id,
                 lead.name,
@@ -116,14 +117,14 @@ export async function POST(request: NextRequest) {
         );
 
         // Update lead status
-        runQuery("UPDATE leads SET status = 'Converted to Client' WHERE id = ?", [
+        await runQuery("UPDATE leads SET status = 'Converted to Client' WHERE id = $1", [
             lead_id,
         ]);
 
         // If there's a referral, create payout record
         if (lead.ref_code && project_value) {
-            const referrer = getOne<any>(
-                "SELECT id FROM referrers WHERE referral_code = ?",
+            const referrer = await getOne<any>(
+                "SELECT id FROM referrers WHERE referral_code = $1",
                 [lead.ref_code]
             );
 
@@ -131,9 +132,9 @@ export async function POST(request: NextRequest) {
                 // Calculate commission (e.g., 10% of project value)
                 const commission = project_value * 0.1;
 
-                runQuery(
+                await runQuery(
                     `INSERT INTO referral_payouts (referrer_id, client_id, amount, status)
-           VALUES (?, ?, ?, 'Pending')`,
+           VALUES ($1, $2, $3, 'Pending')`,
                     [referrer.id, result.lastInsertRowid, commission]
                 );
             }

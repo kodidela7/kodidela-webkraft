@@ -3,27 +3,27 @@ import { extractToken, verifyToken } from "@/lib/auth";
 import { getAll, getOne } from "@/lib/db";
 
 export async function GET(request: NextRequest) {
-    try {
-        // Verify authentication
-        const token = extractToken(request);
-        if (!token || !verifyToken(token)) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
+  try {
+    // Verify authentication
+    const token = extractToken(request);
+    if (!token || !verifyToken(token)) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-        // Visitor trends (last 30 days)
-        const visitorTrends = getAll(`
+    // Visitor trends (last 30 days)
+    const visitorTrends = await getAll(`
       SELECT 
-        DATE(first_visit) as date,
+        CAST(first_visit AS DATE) as date,
         COUNT(DISTINCT visitor_id) as unique_visitors,
         SUM(page_views) as total_pageviews
       FROM visitors
-      WHERE first_visit >= DATE('now', '-30 days')
-      GROUP BY DATE(first_visit)
+      WHERE first_visit >= CURRENT_DATE - INTERVAL '30 days'
+      GROUP BY CAST(first_visit AS DATE)
       ORDER BY date DESC
     `);
 
-        // Geographic distribution
-        const geoDistribution = getAll(`
+    // Geographic distribution
+    const geoDistribution = await getAll(`
       SELECT 
         country,
         COUNT(DISTINCT visitor_id) as visitor_count
@@ -34,8 +34,8 @@ export async function GET(request: NextRequest) {
       LIMIT 10
     `);
 
-        // Traffic sources (referral vs direct)
-        const trafficSources = getAll(`
+    // Traffic sources (referral vs direct)
+    const trafficSources = await getAll(`
       SELECT 
         CASE 
           WHEN ref_code IS NOT NULL THEN 'Referral'
@@ -46,8 +46,8 @@ export async function GET(request: NextRequest) {
       GROUP BY source
     `);
 
-        // Device breakdown
-        const deviceBreakdown = getAll(`
+    // Device breakdown
+    const deviceBreakdown = await getAll(`
       SELECT 
         device,
         COUNT(DISTINCT visitor_id) as visitor_count
@@ -56,8 +56,8 @@ export async function GET(request: NextRequest) {
       ORDER BY visitor_count DESC
     `);
 
-        // Referral performance
-        const referralPerformance = getAll(`
+    // Referral performance
+    const referralPerformance = await getAll(`
       SELECT 
         r.referral_code,
         r.name as referrer_name,
@@ -75,18 +75,18 @@ export async function GET(request: NextRequest) {
       LIMIT 10
     `);
 
-        return NextResponse.json({
-            visitor_trends: visitorTrends,
-            geo_distribution: geoDistribution,
-            traffic_sources: trafficSources,
-            device_breakdown: deviceBreakdown,
-            referral_performance: referralPerformance,
-        });
-    } catch (error) {
-        console.error("Analytics fetch error:", error);
-        return NextResponse.json(
-            { error: "Internal server error" },
-            { status: 500 }
-        );
-    }
+    return NextResponse.json({
+      visitor_trends: visitorTrends,
+      geo_distribution: geoDistribution,
+      traffic_sources: trafficSources,
+      device_breakdown: deviceBreakdown,
+      referral_performance: referralPerformance,
+    });
+  } catch (error) {
+    console.error("Analytics fetch error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
 }

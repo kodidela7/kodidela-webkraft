@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
         }
 
         // Get all referrers with stats
-        const referrers = getAll(`
+        const referrers = await getAll(`
       SELECT 
         r.*,
         COUNT(DISTINCT l.id) as leads_count,
@@ -53,7 +53,7 @@ export async function PUT(request: NextRequest) {
             );
         }
 
-        runQuery("UPDATE referrers SET is_blocked = ? WHERE id = ?", [
+        await runQuery("UPDATE referrers SET is_blocked = $1 WHERE id = $2", [
             is_blocked ? 1 : 0,
             id,
         ]);

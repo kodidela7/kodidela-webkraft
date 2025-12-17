@@ -14,8 +14,8 @@ export async function GET(request: NextRequest) {
             );
         }
 
-        const referrer = getOne(
-            "SELECT id, name, referral_code, is_blocked FROM referrers WHERE referral_code = ?",
+        const referrer = await getOne(
+            "SELECT id, name, referral_code, is_blocked FROM referrers WHERE referral_code = $1",
             [code]
         );
 

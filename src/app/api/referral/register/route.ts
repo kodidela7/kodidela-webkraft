@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
         const data: ReferrerRegistrationRequest = await request.json();
 
         // Validate input
-        const validation = validateReferrerData(data);
+        const validation = await validateReferrerData(data);
         if (!validation.valid) {
             return NextResponse.json<ReferrerRegistrationResponse>(
                 { success: false, message: validation.error },
@@ -38,9 +38,9 @@ export async function POST(request: NextRequest) {
         const referralCode = await generateUniqueReferralCode();
 
         // Insert referrer into database
-        runQuery(
+        await runQuery(
             `INSERT INTO referrers (name, email, phone, referral_code, payout_method)
-       VALUES (?, ?, ?, ?, ?)`,
+       VALUES ($1, $2, $3, $4, $5)`,
             [data.name, data.email, data.phone || null, referralCode, data.payout_method]
         );
 

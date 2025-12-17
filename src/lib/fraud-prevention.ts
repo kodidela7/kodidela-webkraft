@@ -23,9 +23,9 @@ export function isSelfReferral(
 /**
  * Check if a client already has a referral (one referral per client rule)
  */
-export function hasExistingReferral(email: string): boolean {
-    const existingLead = getOne(
-        "SELECT id FROM leads WHERE email = ? AND ref_code IS NOT NULL LIMIT 1",
+export async function hasExistingReferral(email: string): Promise<boolean> {
+    const existingLead = await getOne(
+        "SELECT id FROM leads WHERE email = $1 AND ref_code IS NOT NULL LIMIT 1",
         [email]
     );
 
@@ -33,8 +33,8 @@ export function hasExistingReferral(email: string): boolean {
         return true;
     }
 
-    const existingClient = getOne(
-        "SELECT id FROM clients WHERE email = ? AND ref_code IS NOT NULL LIMIT 1",
+    const existingClient = await getOne(
+        "SELECT id FROM clients WHERE email = $1 AND ref_code IS NOT NULL LIMIT 1",
         [email]
     );
 
@@ -68,12 +68,12 @@ export function checkRateLimit(ip: string, maxRequests = 5): boolean {
 /**
  * Validate referrer data before registration
  */
-export function validateReferrerData(data: {
+export async function validateReferrerData(data: {
     name: string;
     email: string;
     phone?: string;
     payout_method: string;
-}): { valid: boolean; error?: string } {
+}): Promise<{ valid: boolean; error?: string }> {
     if (!data.name || data.name.trim().length < 2) {
         return { valid: false, error: "Name must be at least 2 characters" };
     }
@@ -87,7 +87,7 @@ export function validateReferrerData(data: {
     }
 
     // Check if email already registered
-    const existing = getOne("SELECT id FROM referrers WHERE email = ?", [data.email]);
+    const existing = await getOne("SELECT id FROM referrers WHERE email = $1", [data.email]);
     if (existing) {
         return { valid: false, error: "Email already registered as referrer" };
     }

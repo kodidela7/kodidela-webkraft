@@ -27,8 +27,8 @@ export async function POST(request: NextRequest) {
 
         // Check for referral code fraud if provided
         if (data.ref_code) {
-            const referrer = getOne<{ email: string; phone: string; is_blocked: number }>(
-                "SELECT email, phone, is_blocked FROM referrers WHERE referral_code = ?",
+            const referrer = await getOne<{ email: string; phone: string; is_blocked: number }>(
+                "SELECT email, phone, is_blocked FROM referrers WHERE referral_code = $1",
                 [data.ref_code]
             );
 
@@ -43,16 +43,16 @@ export async function POST(request: NextRequest) {
                     { success: false, message: "Self-referrals are not allowed" },
                     { status: 400 }
                 );
-            } else if (hasExistingReferral(data.email)) {
+            } else if (await hasExistingReferral(data.email)) {
                 // This email already has a referral - use first referral only
                 data.ref_code = undefined;
             }
         }
 
         // Insert lead into database
-        const result = runQuery(
+        const result = await runQuery(
             `INSERT INTO leads (name, email, phone, company, project_type, budget, details, ref_code, status)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'New')`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'New') RETURNING id`,
             [
                 data.name,
                 data.email,
