@@ -51,6 +51,13 @@ export interface Client {
     start_date?: string;
     status: string;
     ref_code?: string;
+    // Payment tracking fields
+    amount_paid?: number;
+    amount_pending?: number;
+    payment_method?: string;
+    payment_notes?: string;
+    payment_status?: string;
+    last_payment_date?: string;
     created_at: string;
 }
 

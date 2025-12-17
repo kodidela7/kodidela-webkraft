@@ -129,10 +129,11 @@ export async function POST(request: NextRequest) {
 
             console.log("Found lead:", lead.email);
 
-            // 2. Create client record
+            // 2. Create client record with payment tracking initialized
             const createClientRes = await client.query(
-                `INSERT INTO clients (lead_id, name, email, phone, company, project_value, service_type, ref_code, status)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'Active') RETURNING id`,
+                `INSERT INTO clients (lead_id, name, email, phone, company, project_value, service_type, ref_code, status,
+                                      amount_paid, amount_pending, payment_status)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'Active', $9, $10, $11) RETURNING id`,
                 [
                     lead_id,
                     lead.name,
@@ -142,6 +143,9 @@ export async function POST(request: NextRequest) {
                     cleanProjectValue || null,
                     lead.project_type,
                     lead.ref_code,
+                    0, // amount_paid initially 0
+                    cleanProjectValue || 0, // amount_pending = project_value
+                    'Pending', // payment_status
                 ]
             );
 

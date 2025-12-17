@@ -27,6 +27,9 @@ export async function POST(request: NextRequest) {
 
         // Check for referral code fraud if provided
         if (data.ref_code) {
+            // Normalize inputs
+            data.ref_code = data.ref_code.toUpperCase();
+
             const referrer = await getOne<{ email: string; phone: string; is_blocked: number }>(
                 "SELECT email, phone, is_blocked FROM referrers WHERE referral_code = $1",
                 [data.ref_code]
