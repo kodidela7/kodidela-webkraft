@@ -17,7 +17,12 @@ export async function GET(request: NextRequest) {
       ORDER BY c.created_at DESC
     `);
 
-        return NextResponse.json({ clients });
+        return NextResponse.json({
+            clients: clients.map((c: any) => ({
+                ...c,
+                project_value: Number(c.project_value || 0),
+            })),
+        });
     } catch (error) {
         console.error("Clients fetch error:", error);
         return NextResponse.json(

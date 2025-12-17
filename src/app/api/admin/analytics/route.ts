@@ -76,11 +76,30 @@ export async function GET(request: NextRequest) {
     `);
 
     return NextResponse.json({
-      visitor_trends: visitorTrends,
-      geo_distribution: geoDistribution,
-      traffic_sources: trafficSources,
-      device_breakdown: deviceBreakdown,
-      referral_performance: referralPerformance,
+      visitor_trends: visitorTrends.map((t: any) => ({
+        ...t,
+        unique_visitors: Number(t.unique_visitors),
+        total_pageviews: Number(t.total_pageviews || 0),
+      })),
+      geo_distribution: geoDistribution.map((g: any) => ({
+        ...g,
+        visitor_count: Number(g.visitor_count),
+      })),
+      traffic_sources: trafficSources.map((t: any) => ({
+        ...t,
+        visitor_count: Number(t.visitor_count),
+      })),
+      device_breakdown: deviceBreakdown.map((d: any) => ({
+        ...d,
+        visitor_count: Number(d.visitor_count),
+      })),
+      referral_performance: referralPerformance.map((r: any) => ({
+        ...r,
+        visitors: Number(r.visitors),
+        leads: Number(r.leads),
+        clients: Number(r.clients),
+        total_value: Number(r.total_value || 0),
+      })),
     });
   } catch (error) {
     console.error("Analytics fetch error:", error);

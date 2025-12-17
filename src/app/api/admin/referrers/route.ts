@@ -26,7 +26,15 @@ export async function GET(request: NextRequest) {
       ORDER BY r.created_at DESC
     `);
 
-        return NextResponse.json({ referrers });
+        return NextResponse.json({
+            referrers: referrers.map((r: any) => ({
+                ...r,
+                leads_count: Number(r.leads_count),
+                converted_clients: Number(r.converted_clients),
+                total_commission: Number(r.total_commission || 0),
+                pending_commission: Number(r.pending_commission || 0),
+            })),
+        });
     } catch (error) {
         console.error("Referrers fetch error:", error);
         return NextResponse.json(

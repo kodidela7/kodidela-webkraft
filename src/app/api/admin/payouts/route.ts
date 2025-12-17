@@ -28,9 +28,15 @@ export async function GET(request: NextRequest) {
       ORDER BY p.created_at DESC
     `);
 
+        const formattedPayouts = payouts.map((p: any) => ({
+            ...p,
+            amount: Number(p.amount),
+            project_value: Number(p.project_value || 0),
+        }));
+
         // CSV export
         if (format === "csv") {
-            const csv = stringify(payouts, {
+            const csv = stringify(formattedPayouts, {
                 header: true,
                 columns: [
                     "id",
@@ -53,7 +59,7 @@ export async function GET(request: NextRequest) {
             });
         }
 
-        return NextResponse.json({ payouts });
+        return NextResponse.json({ payouts: formattedPayouts });
     } catch (error) {
         console.error("Payouts fetch error:", error);
         return NextResponse.json(
