@@ -1,5 +1,5 @@
 import Database from "better-sqlite3";
-import { readFileSync } from "fs";
+import { readFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
 
 const dbPath = join(process.cwd(), "data", "referral.db");
@@ -7,22 +7,42 @@ let db: Database.Database | null = null;
 
 export function getDatabase(): Database.Database {
   if (!db) {
-    // Ensure data directory exists
-    const fs = require("fs");
-    const dataDir = join(process.cwd(), "data");
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
-    }
+    try {
+      // Ensure data directory exists with proper permissions
+      const dataDir = join(process.cwd(), "data");
+      if (!existsSync(dataDir)) {
+        mkdirSync(dataDir, { recursive: true, mode: 0o755 });
+        console.log(`Created data directory: ${dataDir}`);
+      }
 
-    db = new Database(dbPath);
-    db.pragma("journal_mode = WAL");
-    
-    // Initialize schema
-    const schema = readFileSync(
-      join(process.cwd(), "src", "lib", "schema.sql"),
-      "utf-8"
-    );
-    db.exec(schema);
+      // Create or open database
+      db = new Database(dbPath);
+      db.pragma("journal_mode = WAL");
+
+      // Check if tables exist, if not initialize schema
+      const tablesExist = db
+        .prepare(
+          "SELECT name FROM sqlite_master WHERE type='table' AND name='referrers'"
+        )
+        .get();
+
+      if (!tablesExist) {
+        console.log("Initializing database schema...");
+        const schemaPath = join(process.cwd(), "src", "lib", "schema.sql");
+
+        if (!existsSync(schemaPath)) {
+          console.error(`Schema file not found: ${schemaPath}`);
+          throw new Error("Schema file not found");
+        }
+
+        const schema = readFileSync(schemaPath, "utf-8");
+        db.exec(schema);
+        console.log("Database schema initialized successfully");
+      }
+    } catch (error) {
+      console.error("Database initialization error:", error);
+      throw error;
+    }
   }
   return db;
 }
