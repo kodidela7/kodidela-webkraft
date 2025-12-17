@@ -1,12 +1,69 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/components/language-provider";
+import { useReferralCode } from "@/components/referral-tracker";
 import type { LanguageCode } from "@/components/language-provider";
 
 export default function ContactPage() {
   const { language } = useLanguage();
   const copy = CONTACT_COPY[language] ?? CONTACT_COPY.en;
+  const refCode = useReferralCode();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    projectType: "",
+    budget: "",
+    details: "",
+  });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/quote/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          project_type: formData.projectType,
+          ref_code: refCode,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus("success");
+        setMessage("Thank you! We'll get back to you soon.");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          projectType: "",
+          budget: "",
+          details: "",
+        });
+      } else {
+        setStatus("error");
+        setMessage(data.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      setStatus("error");
+      setMessage("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <div className="mx-auto max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] space-y-16 px-4 py-10 md:px-8 md:py-16">
@@ -29,6 +86,13 @@ export default function ContactPage() {
             className="rounded-full border border-zinc-700 px-5 py-2 text-zinc-200 transition hover:border-zinc-400 hover:bg-zinc-900"
           >
             {copy.hero.secondaryCta}
+          </a>
+          <a
+            href="/refer"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 px-5 py-2 text-white shadow-lg shadow-blue-500/40 transition hover:from-blue-400 hover:to-emerald-400"
+          >
+            <span>💰</span>
+            Refer & Earn
           </a>
         </div>
       </section>
@@ -70,26 +134,77 @@ export default function ContactPage() {
             {copy.form.description}
           </p>
 
-          <form className="mt-4 space-y-4 text-sm text-zinc-100">
+          <form onSubmit={handleSubmit} className="mt-4 space-y-4 text-sm text-zinc-100">
             <div className="grid gap-4 md:grid-cols-2">
-              <FormField label={copy.form.nameLabel} type="text" name="name" />
-              <FormField label={copy.form.emailLabel} type="email" name="email" />
+              <div className="space-y-2">
+                <label className="text-xs font-medium text-zinc-300">{copy.form.nameLabel} *</label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-100 outline-none ring-blue-500/40 placeholder:text-zinc-600 focus:border-blue-500 focus:ring-2"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-medium text-zinc-300">{copy.form.emailLabel} *</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-100 outline-none ring-blue-500/40 placeholder:text-zinc-600 focus:border-blue-500 focus:ring-2"
+                />
+              </div>
             </div>
-            <FormField
-              label={copy.form.companyLabel}
-              type="text"
-              name="company"
-            />
-            <FormField
-              label={copy.form.projectTypeLabel}
-              type="text"
-              name="projectType"
-            />
-            <FormField
-              label={copy.form.budgetLabel}
-              type="text"
-              name="budget"
-            />
+
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-zinc-300">Phone Number *</label>
+              <input
+                type="tel"
+                name="phone"
+                required
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                className="w-full rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-100 outline-none ring-blue-500/40 placeholder:text-zinc-600 focus:border-blue-500 focus:ring-2"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-zinc-300">{copy.form.companyLabel}</label>
+              <input
+                type="text"
+                name="company"
+                value={formData.company}
+                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                className="w-full rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-100 outline-none ring-blue-500/40 placeholder:text-zinc-600 focus:border-blue-500 focus:ring-2"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-zinc-300">{copy.form.projectTypeLabel}</label>
+              <input
+                type="text"
+                name="projectType"
+                value={formData.projectType}
+                onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                className="w-full rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-100 outline-none ring-blue-500/40 placeholder:text-zinc-600 focus:border-blue-500 focus:ring-2"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-zinc-300">{copy.form.budgetLabel}</label>
+              <input
+                type="text"
+                name="budget"
+                value={formData.budget}
+                onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                className="w-full rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-100 outline-none ring-blue-500/40 placeholder:text-zinc-600 focus:border-blue-500 focus:ring-2"
+              />
+            </div>
+
             <div className="space-y-2">
               <label className="text-xs font-medium text-zinc-300">
                 {copy.form.detailsLabel}
@@ -97,18 +212,30 @@ export default function ContactPage() {
               <textarea
                 name="details"
                 rows={4}
+                value={formData.details}
+                onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                 className="w-full rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-100 outline-none ring-blue-500/40 placeholder:text-zinc-600 focus:border-blue-500 focus:ring-2"
                 placeholder={copy.form.detailsPlaceholder}
               />
             </div>
+
             <button
               type="submit"
-              className="mt-2 inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 transition hover:bg-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
+              disabled={status === "loading"}
+              className="mt-2 inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 transition hover:bg-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 disabled:opacity-50"
             >
-              {copy.form.submitCta}
+              {status === "loading" ? "Submitting..." : copy.form.submitCta}
             </button>
+
+            {status === "success" && (
+              <p className="text-sm text-emerald-400">{message}</p>
+            )}
+            {status === "error" && (
+              <p className="text-sm text-red-400">{message}</p>
+            )}
+
             <p className="text-xs text-zinc-500">
-              {copy.form.note}
+              {refCode ? `✨ Referred by: ${refCode}` : copy.form.note}
             </p>
           </form>
         </div>

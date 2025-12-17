@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/components/language-provider";
 import { AppShell } from "@/components/app-shell";
+import { ReferralTracker } from "@/components/referral-tracker";
+import { VisitorTracker } from "@/components/visitor-tracker";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +33,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
+        <Suspense fallback={null}>
+          <ReferralTracker />
+          <VisitorTracker />
+        </Suspense>
         <LanguageProvider>
           <AppShell>{children}</AppShell>
         </LanguageProvider>

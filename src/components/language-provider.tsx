@@ -751,7 +751,7 @@ const PORTFOLIO_COPY: Record<LanguageCode, PortfolioCopy> = {
       ],
     },
   },
-    
+
   te: {
     hero: {
       tag: "పని నమూనాలు",
@@ -1522,7 +1522,7 @@ const HOME_COPY: Record<LanguageCode, HomeCopy> = {
             "میں جدید کلاؤڈ اسٹیک پر CI/CD پائپ لائنز، مانیٹرنگ، اور تعیناتیوں کو ڈیزائن اور منظم کرتا ہوں۔ آپ کے سسٹم آن لائن، محفوظ، اور اپ ڈیٹ کرنے میں آسان رہتے ہیں، تاکہ آپ اپنی پروڈکٹ پر توجہ مرکوز کرسکیں۔",
         },
         support: {
-          name: "دیکھ بھال اور مدد" ,
+          name: "دیکھ بھال اور مدد",
           title: "جاری دیکھ بھال، بگ فکسنگ، اور کارکردگی کی ٹیوننگ۔",
           description:
             "میں موجودہ سسٹم کے لیے بیک اپ، سیکیورٹی پیچ، اور کارکردگی کی اصلاح کو سنبھالتا ہوں۔ یہ جان کر ذہنی سکون حاصل کریں کہ آپ کی درخواست کی نگرانی اور دیکھ بھال ایک وقف پارٹنر کے ذریعے کی جاتی ہے۔",
@@ -1823,6 +1823,526 @@ const HOME_COPY: Record<LanguageCode, HomeCopy> = {
   },
 };
 
+type ReferCopy = {
+  hero: {
+    title: string;
+    description: string;
+  };
+  success: {
+    title: string;
+    subtitle: string;
+    codeLabel: string;
+    linkLabel: string;
+    copyButton: string;
+    copiedMessage: string;
+  };
+  howItWorks: {
+    step1Title: string;
+    step1Desc: string;
+    step2Title: string;
+    step2Desc: string;
+    step3Title: string;
+    step3Desc: string;
+  };
+  form: {
+    getStarted: string;
+    joinTitle: string;
+    joinDescription: string;
+    nameLabel: string;
+    emailLabel: string;
+    phoneLabel: string;
+    payoutMethodLabel: string;
+    upi: string;
+    bank: string;
+    paypal: string;
+    submitButton: string;
+    submittingButton: string;
+    termsNote: string;
+  };
+  sidebar: {
+    heading: string;
+    title: string;
+    steps: string[];
+    proTip: string;
+    proTipDescription: string;
+  };
+  benefits: {
+    shareTitle: string;
+    shareDesc: string;
+    projectTitle: string;
+    projectDesc: string;
+    earnTitle: string;
+    earnDesc: string;
+  };
+};
+
+const REFER_COPY: Record<LanguageCode, ReferCopy> = {
+  en: {
+    hero: {
+      title: "Refer & Earn 💸",
+      description:
+        "Share Kodidela WebKraft with your network and earn commission for every successful referral",
+    },
+    success: {
+      title: "You're All Set! 🎉",
+      subtitle:
+        "Your referral link has been sent to your email. Share it to start earning!",
+      codeLabel: "Your Referral Code",
+      linkLabel: "Your Referral Link",
+      copyButton: "Copy",
+      copiedMessage: "Copied to clipboard!",
+    },
+    howItWorks: {
+      step1Title: "Share Your Link",
+      step1Desc:
+        "Share your referral link with friends, colleagues, or on social media",
+      step2Title: "They Get a Project",
+      step2Desc:
+        "When someone uses your link to request a quote, they get great service",
+      step3Title: "You Earn Commission",
+      step3Desc: "Get 10% commission when they become a paying client",
+    },
+    form: {
+      getStarted: "Get Started",
+      joinTitle: "Join Our Referral Program",
+      joinDescription:
+        "Register below to get your unique referral link. Share it with anyone who needs web development services, and earn 10% commission on every project they complete with us.",
+      nameLabel: "Name",
+      emailLabel: "Email",
+      phoneLabel: "Phone (Optional)",
+      payoutMethodLabel: "Preferred Payout Method",
+      upi: "UPI",
+      bank: "Bank Transfer",
+      paypal: "PayPal",
+      submitButton: "Get My Referral Link",
+      submittingButton: "Registering...",
+      termsNote:
+        "By registering, you agree to our referral program terms. You'll receive a unique referral link via email.",
+    },
+    sidebar: {
+      heading: "How it Works",
+      title: "Earn Commission Easily",
+      steps: [
+        "1. Get Your Link: Register and receive a unique referral code and link instantly",
+        "2. Share It: Share your link with anyone looking for web development services",
+        "3. They Request a Quote: When someone uses your link to submit a project request, it's tracked automatically",
+        "4. Earn Commission: Get 10% commission when they become a paying client",
+      ],
+      proTip: "💡 Pro Tip",
+      proTipDescription:
+        "Share your link on LinkedIn, Twitter, or in relevant communities where people discuss web development needs!",
+    },
+    benefits: {
+      shareTitle: "Share Your Link",
+      shareDesc:
+        "Share your referral link with friends, colleagues, or on social media",
+      projectTitle: "They Get a Project",
+      projectDesc:
+        "When someone uses your link to request a quote, they get great service",
+      earnTitle: "You Earn Commission",
+      earnDesc: "Get 10% commission when they become a paying client",
+    },
+  },
+  hi: {
+    hero: {
+      title: "रेफर करें और कमाएं 💸",
+      description:
+        "अपने नेटवर्क के साथ Kodidela WebKraft शेयर करें और हर सफल रेफरल पर कमीशन कमाएं",
+    },
+    success: {
+      title: "आप तैयार हैं! 🎉",
+      subtitle:
+        "आपका रेफरल लिंक आपके ईमेल पर भेजा गया है। कमाई शुरू करने के लिए इसे शेयर करें!",
+      codeLabel: "आपका रेफरल कोड",
+      linkLabel: "आपका रेफरल लिंक",
+      copyButton: "कॉपी करें",
+      copiedMessage: "क्लिपबोर्ड पर कॉपी हो गया!",
+    },
+    howItWorks: {
+      step1Title: "अपना लिंक शेयर करें",
+      step1Desc:
+        "अपना रेफरल लिंक दोस्तों, सहकर्मियों या सोशल मीडिया पर शेयर करें",
+      step2Title: "उन्हें प्रोजेक्ट मिलता है",
+      step2Desc:
+        "जब कोई आपके लिंक से कोट रिक्वेस्ट करता है, उन्हें बेहतरीन सेवा मिलती है",
+      step3Title: "आप कमीशन कमाएं",
+      step3Desc: "जब वे भुगतान करने वाले क्लाइंट बनें तो 10% कमीशन पाएं",
+    },
+    form: {
+      getStarted: "शुरू करें",
+      joinTitle: "हमारे रेफरल प्रोग्राम से जुड़ें",
+      joinDescription:
+        "अपना यूनिक रेफरल लिंक पाने के लिए नीचे रजिस्टर करें। इसे किसी भी ऐसे व्यक्ति के साथ शेयर करें जिसे वेब डेवलपमेंट सेवाओं की जरूरत है, और हमारे साथ पूरे होने वाले हर प्रोजेक्ट पर 10% कमीशन कमाएं।",
+      nameLabel: "नाम",
+      emailLabel: "ईमेल",
+      phoneLabel: "फोन (वैकल्पिक)",
+      payoutMethodLabel: "पसंदीदा पेआउट विधि",
+      upi: "UPI",
+      bank: "बैंक ट्रांसफर",
+      paypal: "PayPal",
+      submitButton: "मेरा रेफरल लिंक पाएं",
+      submittingButton: "रजिस्टर हो रहा है...",
+      termsNote:
+        "रजिस्टर करके, आप हमारे रेफरल प्रोग्राम की शर्तों से सहमत होते हैं। आपको ईमेल के जरिए एक यूनिक रेफरल लिंक मिलेगा।",
+    },
+    sidebar: {
+      heading: "यह कैसे काम करता है",
+      title: "आसानी से कमीशन कमाएं",
+      steps: [
+        "1. अपना लिंक पाएं: रजिस्टर करें और तुरंत एक यूनिक रेफरल कोड और लिंक प्राप्त करें",
+        "2. इसे शेयर करें: अपना लिंक किसी भी ऐसे व्यक्ति के साथ शेयर करें जो वेब डेवलपमेंट सेवाएं ढूंढ रहा है",
+        "3. वे कोट रिक्वेस्ट करें: जब कोई आपके लिंक से प्रोजेक्ट रिक्वेस्ट सबमिट करता है, तो यह ऑटोमेटिक ट्रैक होता है",
+        "4. कमीशन कमाएं: जब वे भुगतान करने वाले क्लाइंट बनें तो 10% कमीशन पाएं",
+      ],
+      proTip: "💡 प्रो टिप",
+      proTipDescription:
+        "अपना लिंक LinkedIn, Twitter पर या उन समुदायों में शेयर करें where people discuss web development needs!",
+    },
+    benefits: {
+      shareTitle: "अपना लिंक शेयर करें",
+      shareDesc:
+        "अपना रेफरल लिंक दोस्तों, सहकर्मियों या सोशल मीडिया पर शेयर करें",
+      projectTitle: "उन्हें प्रोजेक्ट मिलता है",
+      projectDesc:
+        "जब कोई आपके लिंक से कोट रिक्वेस्ट करता है, उन्हें बेहतरीन सेवा मिलती है",
+      earnTitle: "आप कमीशन कमाएं",
+      earnDesc: "जब वे भुगतान करने वाले क्लाइंट बनें तो 10% कमीशन पाएं",
+    },
+  },
+  ar: {
+    hero: {
+      title: "أحِل وأكسِب 💸",
+      description:
+        "شارك Kodidela WebKraft مع شبكتك واكسب عمولة عن كل إحالة ناجحة",
+    },
+    success: {
+      title: "أنت جاهز! 🎉",
+      subtitle:
+        "تم إرسال رابط الإحالة إلى بريدك الإلكتروني. شاركه لبدء الكسب!",
+      codeLabel: "كود الإحالة الخاص بك",
+      linkLabel: "رابط الإحالة الخاص بك",
+      copyButton: "نسخ",
+      copiedMessage: "تم النسخ!",
+    },
+    howItWorks: {
+      step1Title: "شارك رابطك",
+      step1Desc:
+        "شارك رابط الإحالة مع الأصدقاء والزملاء أو على وسائل التواصل",
+      step2Title: "يحصلون على مشروع",
+      step2Desc:
+        "عندما يستخدم شخص ما رابطك لطلب عرض سعر، يحصل على خدمة رائعة",
+      step3Title: "تكسب عمولة",
+      step3Desc: "احصل على 10% عمولة عندما يصبحون عملاء دافعين",
+    },
+    form: {
+      getStarted: "ابدأ",
+      joinTitle: "انضم إلى برنامج الإحالة",
+      joinDescription:
+        "سجّل أدناه للحصول على رابط الإحالة الفريد. شاركه مع أي شخص يحتاج لخدمات تطوير الويب، واكسب 10% عمولة على كل مشروع يكملونه معنا.",
+      nameLabel: "الاسم",
+      emailLabel: "البريد الإلكتروني",
+      phoneLabel: "الهاتف (اختياري)",
+      payoutMethodLabel: "طريقة الدفع المفضلة",
+      upi: "UPI",
+      bank: "تحويل بنكي",
+      paypal: "PayPal",
+      submitButton: "احصل على رابط الإحالة",
+      submittingButton: "جارٍ التسجيل...",
+      termsNote:
+        "بالتسجيل، أنت توافق على شروط برنامج الإحالة. ستتلقى رابط إحالة فريد عبر البريد الإلكتروني.",
+    },
+    sidebar: {
+      heading: "كيف يعمل",
+      title: "اكسب عمولة بسهولة",
+      steps: [
+        "1. احصل على رابطك: سجّل واحصل على كود ورابط إحالة فريد فورًا",
+        "2. شاركه: شارك رابطك مع أي شخص يبحث عن خدمات تطوير الويب",
+        "3. يطلبون عرض سعر: عندما يستخدم شخص ما رابطك لتقديم طلب مشروع، يتم تتبعه تلقائيًا",
+        "4. اكسب عمولة: احصل على 10% عمولة عندما يصبحون عملاء دافعين",
+      ],
+      proTip: "💡 نصيحة احترافية",
+      proTipDescription:
+        "شارك رابطك على LinkedIn أو Twitter أو في المجتمعات ذات الصلة حيث يناقش الناس احتياجات تطوير الويب!",
+    },
+    benefits: {
+      shareTitle: "شارك رابطك",
+      shareDesc:
+        "شارك رابط الإحالة مع الأصدقاء والزملاء أو على وسائل التواصل",
+      projectTitle: "يحصلون على مشروع",
+      projectDesc:
+        "عندما يستخدم شخص ما رابطك لطلب عرض سعر، يحصل على خدمة رائعة",
+      earnTitle: "تكسب عمولة",
+      earnDesc: "احصل على 10% عمولة عندما يصبحون عملاء دافعين",
+    },
+  },
+  ur: {
+    hero: {
+      title: "ریفر کریں اور کمائیں 💸",
+      description:
+        "اپنے نیٹ ورک کے ساتھ Kodidela WebKraft شیئر کریں اور ہر کامیاب ریفرل پر کمیشن کمائیں",
+    },
+    success: {
+      title: "آپ تیار ہیں! 🎉",
+      subtitle:
+        "آپ کا ریفرل لنک آپ کی ای میل پر بھیج دیا گیا ہے۔ کمائی شروع کرنے کے لیے اسے شیئر کریں!",
+      codeLabel: "آپ کا ریفرل کوڈ",
+      linkLabel: "آپ کا ریفرل لنک",
+      copyButton: "کاپی کریں",
+      copiedMessage: "کلپ بورڈ پر کاپی ہو گیا!",
+    },
+    howItWorks: {
+      step1Title: "اپنا لنک شیئر کریں",
+      step1Desc:
+        "اپنا ریفرل لنک دوستوں، ساتھیوں یا سوشل میڈیا پر شیئر کریں",
+      step2Title: "انہیں پروجیکٹ ملتا ہے",
+      step2Desc:
+        "جب کوئی آپ کے لنک سے کوٹ ریکویسٹ کرتا ہے، انہیں بہترین سروس ملتی ہے",
+      step3Title: "آپ کمیشن کمائیں",
+      step3Desc: "جب وہ ادائیگی کرنے والے کلائنٹ بنیں تو 10% کمیشن پائیں",
+    },
+    form: {
+      getStarted: "شروع کریں",
+      joinTitle: "ہمارے ریفرل پروگرام میں شامل ہوں",
+      joinDescription:
+        "اپنا یونیک ریفرل لنک پانے کے لیے نیچے رجسٹر کریں۔ اسے کسی بھی ایسے شخص کے ساتھ شیئر کریں جسے ویب ڈیولپمنٹ سروسز کی ضرورت ہے، اور ہمارے ساتھ مکمل ہونے والے ہر پروجیکٹ پر 10% کمیشن کمائیں۔",
+      nameLabel: "نام",
+      emailLabel: "ای میل",
+      phoneLabel: "فون (اختیاری)",
+      payoutMethodLabel: "پسندیدہ پےآؤٹ طریقہ",
+      upi: "UPI",
+      bank: "بینک ٹرانسفر",
+      paypal: "PayPal",
+      submitButton: "میرا ریفرل لنک پائیں",
+      submittingButton: "رجسٹر ہو رہا ہے...",
+      termsNote:
+        "رجسٹر کرکے، آپ ہمارے ریفرل پروگرام کی شرائط سے متفق ہوتے ہیں۔ آپ کو ای میل کے ذریعے ایک یونیک ریفرل لنک ملے گا۔",
+    },
+    sidebar: {
+      heading: "یہ کیسے کام کرتا ہے",
+      title: "آسانی سے کمیشن کمائیں",
+      steps: [
+        "1. اپنا لنک پائیں: رجسٹر کریں اور فوری طور پر ایک یونیک ریفرل کوڈ اور لنک حاصل کریں",
+        "2. اسے شیئر کریں: اپنا لنک کسی بھی ایسے شخص کے ساتھ شیئر کریں جو ویب ڈیولپمنٹ سروسز تلاش کر رہا ہے",
+        "3. وہ کوٹ ریکویسٹ کریں: جب کوئی آپ کے لنک سے پروجیکٹ ریکویسٹ سبمٹ کرتا ہے، تو یہ خودکار ٹریک ہوتا ہے",
+        "4. کمیشن کمائیں: جب وہ ادائیگی کرنے والے کلائنٹ بنیں تو 10% کمیشن پائیں",
+      ],
+      proTip: "💡 پرو ٹپ",
+      proTipDescription:
+        "اپنا لنک LinkedIn، Twitter پر یا متعلقہ کمیونٹیز میں شیئر کریں جہاں لوگ ویب ڈیولپمنٹ کی ضروریات پر بات کرتے ہیں!",
+    },
+    benefits: {
+      shareTitle: "اپنا لنک شیئر کریں",
+      shareDesc:
+        "اپنا ریفرل لنک دوستوں، ساتھیوں یا سوشل میڈیا پر شیئر کریں",
+      projectTitle: "انہیں پروجیکٹ ملتا ہے",
+      projectDesc:
+        "جب کوئی آپ کے لنک سے کوٹ ریکویسٹ کرتا ہے، انہیں بہترین سروس ملتی ہے",
+      earnTitle: "آپ کمیشن کمائیں",
+      earnDesc: "جب وہ ادائیگی کرنے والے کلائنٹ بنیں تو 10% کمیشن پائیں",
+    },
+  },
+  fr: {
+    hero: {
+      title: "Parrainer & Gagner 💸",
+      description:
+        "Partagez Kodidela WebKraft avec votre réseau et gagnez une commission pour chaque parrainage réussi",
+    },
+    success: {
+      title: "Vous êtes prêt ! 🎉",
+      subtitle:
+        "Votre lien de parrainage a été envoyé à votre email. Partagez-le pour commencer à gagner !",
+      codeLabel: "Votre code de parrainage",
+      linkLabel: "Votre lien de parrainage",
+      copyButton: "Copier",
+      copiedMessage: "Copié !",
+    },
+    howItWorks: {
+      step1Title: "Partagez votre lien",
+      step1Desc:
+        "Partagez votre lien de parrainage avec des amis, collègues ou sur les réseaux sociaux",
+      step2Title: "Ils obtiennent un projet",
+      step2Desc:
+        "Quand quelqu'un utilise votre lien pour demander un devis, il reçoit un excellent service",
+      step3Title: "Vous gagnez une commission",
+      step3Desc: "Recevez 10% de commission quand ils deviennent clients payants",
+    },
+    form: {
+      getStarted: "Commencer",
+      joinTitle: "Rejoignez notre programme de parrainage",
+      joinDescription:
+        "Inscrivez-vous ci-dessous pour obtenir votre lien de parrainage unique. Partagez-le avec toute personne ayant besoin de services de développement web, et gagnez 10% de commission sur chaque projet qu'elle réalise avec nous.",
+      nameLabel: "Nom",
+      emailLabel: "Email",
+      phoneLabel: "Téléphone (Optionnel)",
+      payoutMethodLabel: "Méthode de paiement préférée",
+      upi: "UPI",
+      bank: "Virement bancaire",
+      paypal: "PayPal",
+      submitButton: "Obtenir mon lien de parrainage",
+      submittingButton: "Inscription...",
+      termsNote:
+        "En vous inscrivant, vous acceptez les conditions du programme de parrainage. Vous recevrez un lien de parrainage unique par email.",
+    },
+    sidebar: {
+      heading: "Comment ça marche",
+      title: "Gagnez facilement une commission",
+      steps: [
+        "1. Obtenez votre lien : Inscrivez-vous et recevez instantanément un code et un lien de parrainage uniques",
+        "2. Partagez-le : Partagez votre lien avec toute personne cherchant des services de développement web",
+        "3. Ils demandent un devis : Quand quelqu'un utilise votre lien pour soumettre une demande de projet, elle est automatiquement suivie",
+        "4. Gagnez une commission : Recevez 10% de commission quand ils deviennent clients payants",
+      ],
+      proTip: "💡 Astuce",
+      proTipDescription:
+        "Partagez votre lien sur LinkedIn, Twitter ou dans les communautés pertinentes où les gens discutent de leurs besoins en développement web !",
+    },
+    benefits: {
+      shareTitle: "Partagez votre lien",
+      shareDesc:
+        "Partagez votre lien de parrainage avec des amis, collègues ou sur les réseaux sociaux",
+      projectTitle: "Ils obtiennent un projet",
+      projectDesc:
+        "Quand quelqu'un utilise votre lien pour demander un devis, il reçoit un excellent service",
+      earnTitle: "Vous gagnez une commission",
+      earnDesc: "Recevez 10% de commission quand ils deviennent clients payants",
+    },
+  },
+  es: {
+    hero: {
+      title: "Refiere y Gana 💸",
+      description:
+        "Comparte Kodidela WebKraft con tu red y gana comisión por cada referido exitoso",
+    },
+    success: {
+      title: "¡Todo listo! 🎉",
+      subtitle:
+        "Tu enlace de referido ha sido enviado a tu email. ¡Compártelo para empezar a ganar!",
+      codeLabel: "Tu código de referido",
+      linkLabel: "Tu enlace de referido",
+      copyButton: "Copiar",
+      copiedMessage: "¡Copiado!",
+    },
+    howItWorks: {
+      step1Title: "Comparte tu enlace",
+      step1Desc:
+        "Comparte tu enlace de referido con amigos, colegas o en redes sociales",
+      step2Title: "Obtienen un proyecto",
+      step2Desc:
+        "Cuando alguien usa tu enlace para solicitar un presupuesto, recibe un excelente servicio",
+      step3Title: "Ganas comisión",
+      step3Desc: "Obtén 10% de comisión cuando se conviertan en clientes de pago",
+    },
+    form: {
+      getStarted: "Comenzar",
+      joinTitle: "Únete a nuestro programa de referidos",
+      joinDescription:
+        "Regístrate abajo para obtener tu enlace de referido único. Compártelo con cualquiera que necesite servicios de desarrollo web, y gana 10% de comisión en cada proyecto que completen con nosotros.",
+      nameLabel: "Nombre",
+      emailLabel: "Email",
+      phoneLabel: "Teléfono (Opcional)",
+      payoutMethodLabel: "Método de pago preferido",
+      upi: "UPI",
+      bank: "Transferencia bancaria",
+      paypal: "PayPal",
+      submitButton: "Obtener mi enlace de referido",
+      submittingButton: "Registrando...",
+      termsNote:
+        "Al registrarte, aceptas los términos del programa de referidos. Recibirás un enlace de referido único por email.",
+    },
+    sidebar: {
+      heading: "Cómo funciona",
+      title: "Gana comisión fácilmente",
+      steps: [
+        "1. Obtén tu enlace: Regístrate y recibe un código y enlace de referido únicos al instante",
+        "2. Compártelo: Comparte tu enlace con cualquiera que busque servicios de desarrollo web",
+        "3. Solicitan un presupuesto: Cuando alguien usa tu enlace para enviar una solicitud de proyecto, se rastrea automáticamente",
+        "4. Gana comisión: Obtén 10% de comisión cuando se conviertan en clientes de pago",
+      ],
+      proTip: "💡 Consejo",
+      proTipDescription:
+        "¡Comparte tu enlace en LinkedIn, Twitter o en comunidades relevantes donde la gente discute necesidades de desarrollo web!",
+    },
+    benefits: {
+      shareTitle: "Comparte tu enlace",
+      shareDesc:
+        "Comparte tu enlace de referido con amigos, colegas o en redes sociales",
+      projectTitle: "Obtienen un proyecto",
+      projectDesc:
+        "Cuando alguien usa tu enlace para solicitar un presupuesto, recibe un excelente servicio",
+      earnTitle: "Ganas comisión",
+      earnDesc: "Obtén 10% de comisión cuando se conviertan en clientes de pago",
+    },
+  },
+  te: {
+    hero: {
+      title: "రిఫర్ చేసి సంపాదించండి 💸",
+      description:
+        "మీ నెట్‌వర్క్‌తో Kodidela WebKraft షేర్ చేసి ప్రతి విజయవంతమైన రిఫెరల్‌కు కమిషన్ సంపాదించండి",
+    },
+    success: {
+      title: "మీరు సిద్ధంగా ఉన్నారు! 🎉",
+      subtitle:
+        "మీ రిఫరల్ లింక్ మీ ఈమెయిల్‌కు పంపబడింది। సంపాదన ప్రారంభించడానికి దాన్ని షేర్ చేయండి!",
+      codeLabel: "మీ రిఫరల్ కోడ్",
+      linkLabel: "మీ రిఫరల్ లింక్",
+      copyButton: "కాపీ చేయండి",
+      copiedMessage: "క్లిప్‌బోర్డ్‌కు కాపీ అయింది!",
+    },
+    howItWorks: {
+      step1Title: "మీ లింక్ షేర్ చేయండి",
+      step1Desc:
+        "మీ రిఫరల్ లింక్‌ను స్నేహితులు, సహోద్యోగులతో లేదా సోషల్ మీడియాలో షేర్ చేయండి",
+      step2Title: "వారికి ప్రాజె క్ట్ లభిస్తుంది",
+      step2Desc:
+        "ఎవరైనా మీ లింక్ ఉపయోగించి కోట్ అభ్యర్థిస్తే, వారికి గొప్ప సేవ లభిస్తుంది",
+      step3Title: "మీరు కమిషన్ సంపాదించండి",
+      step3Desc:
+        "వారు చెల్లించే క్లయింట్‌గా మారినప్పుడు 10% కమిషన్ పొందండి",
+    },
+    form: {
+      getStarted: "ప్రారంభించండి",
+      joinTitle: "మా రిఫరల్ ప్రోగ్రామ్‌లో చేరండి",
+      joinDescription:
+        "మీ ప్రత్యేక రిఫరల్ లింక్ పొందడానికి క్రింద రిజిస్టర్ చేయండి। వెబ్ డెవలప్‌మెంట్ సేవలు అవసరమైన ఎవరితోనైనా దాన్ని షేర్ చేసి, మాతో వారు పూర్తి చేసే ప్రతి ప్రాజెక్ట్‌పై 10% కమిషన్ సంపాదించండి।",
+      nameLabel: "పేరు",
+      emailLabel: "ఈమెయిల్",
+      phoneLabel: "ఫోన్ (ఐచ్ఛికం)",
+      payoutMethodLabel: "ప్రాధాన్య పేఅవుట్ పద్ధతి",
+      upi: "UPI",
+      bank: "బ్యాంక్ బదిలీ",
+      paypal: "PayPal",
+      submitButton: "నా రిఫరల్ లింక్ పొందండి",
+      submittingButton: "రిజిస్టర్ అవుతోంది...",
+      termsNote:
+        "రిజిస్టర్ చేయడం ద్వారా, మీరు మా రిఫరల్ ప్రోగ్రామ్ నిబంధనలకు అంగీకరిస్తారు। మీరు ఈమెయిల్ ద్వారా ఒక ప్రత్యేక రిఫరల్ లింక్ అందుకుంటారు।",
+    },
+    sidebar: {
+      heading: "ఇది ఎలా పనిచేస్తుంది",
+      title: "సులభంగా కమిషన్ సంపాదించండి",
+      steps: [
+        "1. మీ లింక్ పొందండి: రిజిస్టర్ చేసి వెంటనే ప్రత్యేక రిఫరల్ కోడ్ మరియు లింక్ పొందండి",
+        "2. దాన్ని షేర్ చేయండి: వెబ్ డెవలప్‌మెంట్ సేవలు కోసం వెతుకుతున్న ఎవరితోనైనా మీ లింక్ షేర్ చేయండి",
+        "3. వారు కోట్ అభ్యర్థిస్తారు: ఎవరైనా మీ లింక్ ఉపయోగించి ప్రాజెక్ట్ అభ్యర్థన సమర్పించినప్పుడు, అది స్వయంచాలకంగా ట్రాక్ చేయబడుతుంది",
+        "4. కమిషన్ సంపాదించండి: వారు చెల్లించే క్లయింట్‌గా మారినప్పుడు 10% కమిషన్ పొందండి",
+      ],
+      proTip: "💡 ప్రో చిట్కా",
+      proTipDescription:
+        "మీ లింక్‌ను LinkedIn, Twitter లేదా వెబ్ డెవలప్‌మెంట్ అవసరాల గురించి ప్రజలు చర్చించే సంబంధిత కమ్యూనిటీలలో షేర్ చేయండి!",
+    },
+    benefits: {
+      shareTitle: "మీ లింక్ షేర్ చేయండి",
+      shareDesc:
+        "మీ రిఫరల్ లింక్‌ను స్నేహితులు, సహోద్యోగులతో లేదా సోషల్ మీడియాలో షేర్ చేయండి",
+      projectTitle: "వారికి ప్రాజెక్ట్ లభిస్తుంది",
+      projectDesc:
+        "ఎవరైనా మీ లింక్ ఉపయోగించి కోట్ అభ్యర్థిస్తే, వారికి గొప్ప సేవ లభిస్తుంది",
+      earnTitle: "మీరు కమిషన్ సంపాదించండి",
+      earnDesc:
+        "వారు చెల్లించే క్లయింట్‌గా మారినప్పుడు 10% కమిషన్ పొందండి",
+    },
+  },
+};
+
 type LanguageContextValue = {
   language: LanguageCode;
   setLanguage: (code: LanguageCode) => void;
@@ -1830,6 +2350,7 @@ type LanguageContextValue = {
   servicesCopy: ServicesCopy;
   portfolioCopy: PortfolioCopy;
   aboutCopy: AboutCopy;
+  referCopy: ReferCopy;
 };
 
 const LanguageContext = createContext<LanguageContextValue | undefined>(
@@ -1888,6 +2409,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       servicesCopy: SERVICES_COPY[language] ?? SERVICES_COPY.en,
       portfolioCopy: PORTFOLIO_COPY[language] ?? PORTFOLIO_COPY.en,
       aboutCopy: ABOUT_COPY[language] ?? ABOUT_COPY.en,
+      referCopy: REFER_COPY[language] ?? REFER_COPY.en,
     }),
     [language],
   );

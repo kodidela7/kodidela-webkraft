@@ -43,6 +43,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <NavLink href="/about" label={layout.nav.about} />
               <NavLink href="/contact" label={layout.nav.contact} />
             </div>
+            <Link
+              href="/refer"
+              className="hidden md:inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-blue-500/40 transition hover:from-blue-400 hover:to-emerald-400"
+            >
+              <span>💰</span>
+              Refer & Earn
+            </Link>
             <div className="flex items-center gap-2">
               <LanguageSwitcher />
               <button
@@ -131,6 +138,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 >
                   {layout.nav.contact}
                 </Link>
+                <Link
+                  href="/refer"
+                  className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <span>💰</span>
+                  Refer & Earn
+                </Link>
               </nav>
             </div>
           </div>
@@ -172,6 +187,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 {layout.footer.companyItems.map((item) => (
                   <p key={item}>{item}</p>
                 ))}
+                <Link href="/refer" className="block text-blue-400 hover:text-blue-300">
+                  💰 Refer & Earn
+                </Link>
               </div>
             </div>
             <div className="space-y-2">

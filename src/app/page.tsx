@@ -69,6 +69,22 @@ export default function Home() {
                 {homeCopy.hero.secondaryCta}
               </a>
             </div>
+
+            {/* Refer & Earn CTA */}
+            <div className="mt-4 rounded-xl border border-blue-500/20 bg-gradient-to-r from-blue-500/10 to-emerald-500/10 p-4">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-white">💰 Earn Money by Referring!</p>
+                  <p className="text-xs text-zinc-400">Get 10% commission on every project you refer</p>
+                </div>
+                <a
+                  href="/refer"
+                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 transition hover:from-blue-400 hover:to-emerald-400"
+                >
+                  Join Now
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -210,6 +226,13 @@ export default function Home() {
               >
                 {homeCopy.readySection.secondaryCta}
               </a>
+              <a
+                href="/refer"
+                className="inline-flex items-center gap-2 justify-center rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 transition hover:from-blue-400 hover:to-emerald-400"
+              >
+                <span>💰</span>
+                Refer & Earn
+              </a>
             </div>
           </div>
         </div>
@@ -225,73 +248,73 @@ function ServiceTabs() {
   const [activeTab, setActiveTab] = useState("web");
 
   const TABS = [
-  {
-    id: "web",
-    name: homeCopy.buildSection.tabs.web.name,
-    title: homeCopy.buildSection.tabs.web.title,
-    description: homeCopy.buildSection.tabs.web.description,
-    image: "/globe.svg",
-    icon: (props: any) => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        {...props}
-      >
-        <circle cx="12" cy="12" r="10" />
-        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-      </svg>
-    ),
-  },
-  {
-    id: "devops",
-    name: homeCopy.buildSection.tabs.devops.name,
-    title: homeCopy.buildSection.tabs.devops.title,
-    description: homeCopy.buildSection.tabs.devops.description,
-    image: "/window.svg",
-    icon: (props: any) => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        {...props}
-      >
-        <path d="M20 17V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2z" />
-        <path d="m16 2-4 4-4-4M8 22v-4h8v4" />
-      </svg>
-    ),
-  },
-  {
-    id: "support",
-    name: homeCopy.buildSection.tabs.support.name,
-    title: homeCopy.buildSection.tabs.support.title,
-    description: homeCopy.buildSection.tabs.support.description,
-    image: "/file.svg",
-    icon: (props: any) => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        {...props}
-      >
-        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-        <path d="m9 12 2 2 4-4" />
-      </svg>
-    ),
-  },
-];
+    {
+      id: "web",
+      name: homeCopy.buildSection.tabs.web.name,
+      title: homeCopy.buildSection.tabs.web.title,
+      description: homeCopy.buildSection.tabs.web.description,
+      image: "/globe.svg",
+      icon: (props: any) => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          {...props}
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        </svg>
+      ),
+    },
+    {
+      id: "devops",
+      name: homeCopy.buildSection.tabs.devops.name,
+      title: homeCopy.buildSection.tabs.devops.title,
+      description: homeCopy.buildSection.tabs.devops.description,
+      image: "/window.svg",
+      icon: (props: any) => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          {...props}
+        >
+          <path d="M20 17V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2z" />
+          <path d="m16 2-4 4-4-4M8 22v-4h8v4" />
+        </svg>
+      ),
+    },
+    {
+      id: "support",
+      name: homeCopy.buildSection.tabs.support.name,
+      title: homeCopy.buildSection.tabs.support.title,
+      description: homeCopy.buildSection.tabs.support.description,
+      image: "/file.svg",
+      icon: (props: any) => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          {...props}
+        >
+          <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+          <path d="m9 12 2 2 4-4" />
+        </svg>
+      ),
+    },
+  ];
 
   const activeTabData = TABS.find((tab) => tab.id === activeTab);
 
@@ -303,16 +326,14 @@ function ServiceTabs() {
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id)}
-            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 transition ${
-              activeTab === tab.id
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 transition ${activeTab === tab.id
                 ? "border-zinc-700 bg-white text-black shadow-sm"
                 : "border-zinc-800 bg-black/70 text-zinc-300 hover:border-zinc-600 hover:bg-zinc-900"
-            }`}
+              }`}
           >
             <tab.icon
-              className={`h-4 w-4 ${
-                activeTab === tab.id ? "text-black" : "text-zinc-400"
-              }`}
+              className={`h-4 w-4 ${activeTab === tab.id ? "text-black" : "text-zinc-400"
+                }`}
             />
             {tab.name}
           </button>
