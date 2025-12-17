@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { extractToken, verifyToken } from "@/lib/auth";
-import { getAll, runQuery, getOne } from "@/lib/db";
+import { getAll, runQuery, getOne, getDatabase } from "@/lib/db";
 
 export async function GET(request: NextRequest) {
     try {
@@ -84,7 +84,10 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const { lead_id, project_value } = await request.json();
+        const body = await request.json();
+        console.log("Conversion request body:", body);
+
+        const { lead_id, project_value } = body;
 
         if (!lead_id) {
             return NextResponse.json(
@@ -93,61 +96,103 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Get lead details
-        const lead = await getOne<any>("SELECT * FROM leads WHERE id = $1", [lead_id]);
-
-        if (!lead) {
-            return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+        // Sanitize project_value to ensure it's a number
+        let cleanProjectValue = 0;
+        if (project_value) {
+            cleanProjectValue = Number(project_value);
+            if (isNaN(cleanProjectValue)) {
+                // Try parsing if string contains currency symbols
+                if (typeof project_value === 'string') {
+                    cleanProjectValue = parseFloat(project_value.replace(/[^0-9.]/g, ''));
+                }
+            }
         }
+        if (isNaN(cleanProjectValue)) cleanProjectValue = 0;
 
-        // Create client record
-        const result = await runQuery(
-            `INSERT INTO clients (lead_id, name, email, phone, company, project_value, service_type, ref_code, status)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'Active') RETURNING id`,
-            [
-                lead_id,
-                lead.name,
-                lead.email,
-                lead.phone,
-                lead.company,
-                project_value || null,
-                lead.project_type,
-                lead.ref_code,
-            ]
-        );
+        console.log(`Converting lead ${lead_id} with value ${cleanProjectValue}`);
 
-        // Update lead status
-        await runQuery("UPDATE leads SET status = 'Converted to Client' WHERE id = $1", [
-            lead_id,
-        ]);
+        // dedicated client for transaction
+        const client = await getDatabase().connect();
+        let client_id: any;
 
-        // If there's a referral, create payout record
-        if (lead.ref_code && project_value) {
-            const referrer = await getOne<any>(
-                "SELECT id FROM referrers WHERE referral_code = $1",
-                [lead.ref_code]
+        try {
+            await client.query('BEGIN');
+
+            // 1. Get lead details using the SAME client
+            const leadRes = await client.query("SELECT * FROM leads WHERE id = $1", [lead_id]);
+            const lead = leadRes.rows[0];
+
+            if (!lead) {
+                await client.query('ROLLBACK');
+                return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+            }
+
+            console.log("Found lead:", lead.email);
+
+            // 2. Create client record
+            const createClientRes = await client.query(
+                `INSERT INTO clients (lead_id, name, email, phone, company, project_value, service_type, ref_code, status)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'Active') RETURNING id`,
+                [
+                    lead_id,
+                    lead.name,
+                    lead.email,
+                    lead.phone,
+                    lead.company,
+                    cleanProjectValue || null,
+                    lead.project_type,
+                    lead.ref_code,
+                ]
             );
 
-            if (referrer) {
-                // Calculate commission (e.g., 10% of project value)
-                const commission = project_value * 0.1;
+            client_id = createClientRes.rows[0].id;
+            console.log("Client created with ID:", client_id);
 
-                await runQuery(
-                    `INSERT INTO referral_payouts (referrer_id, client_id, amount, status)
-           VALUES ($1, $2, $3, 'Pending')`,
-                    [referrer.id, result.lastInsertRowid, commission]
+            // 3. Update lead status
+            await client.query("UPDATE leads SET status = 'Converted to Client' WHERE id = $1", [
+                lead_id,
+            ]);
+
+            // 4. If there's a referral, create payout record
+            if (lead.ref_code && cleanProjectValue > 0) {
+                const referrerRes = await client.query(
+                    "SELECT id FROM referrers WHERE referral_code = $1",
+                    [lead.ref_code]
                 );
+                const referrer = referrerRes.rows[0];
+
+                if (referrer) {
+                    // Calculate commission (10%)
+                    const commission = cleanProjectValue * 0.1;
+                    console.log(`Creating payout for referrer ${referrer.id}: ${commission}`);
+
+                    await client.query(
+                        `INSERT INTO referral_payouts (referrer_id, client_id, amount, status)
+               VALUES ($1, $2, $3, 'Pending')`,
+                        [referrer.id, client_id, commission]
+                    );
+                }
             }
+
+            await client.query('COMMIT');
+            console.log("Transaction committed successfully");
+
+        } catch (err) {
+            await client.query('ROLLBACK');
+            console.error("Transaction failed, rolled back:", err);
+            throw err;
+        } finally {
+            client.release();
         }
 
         return NextResponse.json({
             success: true,
-            client_id: result.lastInsertRowid,
+            client_id: client_id,
         });
     } catch (error) {
         console.error("Lead to client conversion error:", error);
         return NextResponse.json(
-            { error: "Internal server error" },
+            { error: "Internal server error: " + (error instanceof Error ? error.message : String(error)) },
             { status: 500 }
         );
     }
