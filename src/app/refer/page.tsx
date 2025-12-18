@@ -160,7 +160,7 @@ export default function ReferPage() {
                 <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black/70">
                     <div className="absolute -inset-10 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.45),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(16,185,129,0.35),_transparent_55%)] opacity-80 blur-3xl" />
                     <Image
-                        src="/window.svg"
+                        src="/refer&earn.gif"
                         alt="How referral program works"
                         fill
                         className="relative object-contain p-6 animate-float-slow"

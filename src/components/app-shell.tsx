@@ -29,7 +29,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <nav className="mx-auto flex max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] items-center justify-between px-4 py-1 md:px-8">
           <Link href="/" aria-label="Home">
             <Image
-              src="/logo.png"
+              src="/logo1.png"
               alt="Kodidela Webkraft logo"
               width={160}
               height={62}
@@ -158,7 +158,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto flex max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] flex-col gap-8 px-4 py-10 text-sm text-zinc-400 md:flex-row md:items-start md:justify-between md:px-8">
           <div className="max-w-xs space-y-4">
             <Image
-              src="/logo.png"
+              src="/k-rectangle.svg"
               alt="Kodidela Webkraft logo"
               width={160}
               height={62}

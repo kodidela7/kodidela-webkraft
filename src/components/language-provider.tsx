@@ -173,7 +173,7 @@ const SERVICES_COPY: Record<LanguageCode, ServicesCopy> = {
   en: {
     hero: {
       tag: "Services",
-      title: "What I build for you",
+      title: "What we build for you",
       description:
         "Clean code, reliable systems, and solutions that scale. From landing pages to complex dashboards and infrastructure, every project gets the attention it deserves.",
       primaryCta: "Start a project",

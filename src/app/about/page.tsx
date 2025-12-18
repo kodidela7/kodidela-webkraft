@@ -32,11 +32,12 @@ export default function AboutPage() {
         <div className="space-y-4 rounded-2xl border border-white/10 bg-zinc-900/50 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.95)]">
           <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black/70">
             <div className="absolute -inset-10 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.45),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(16,185,129,0.35),_transparent_55%)] opacity-80 blur-3xl" />
-            <Image
-              src="/window.svg"
-              alt="Bug-fix workflow demo"
-              fill
-              className="relative object-contain p-6 animate-float-slow"
+            <video
+              src="/bug.mp4"
+              autoPlay
+              loop
+              muted
+              className="h-full w-full object-cover"
             />
             <div className="pointer-events-none absolute inset-x-4 bottom-3 flex items-center justify-between text-[11px] text-zinc-200">
               <span>{copy.hero.videoCaption}</span>
@@ -46,7 +47,7 @@ export default function AboutPage() {
               </span>
             </div>
           </div>
-          <p className="text-xs text-zinc-500">{copy.hero.videoNote}</p>
+          {/* <p className="text-xs text-zinc-500">{copy.hero.videoNote}</p> */}
         </div>
       </section>
 

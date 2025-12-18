@@ -20,51 +20,60 @@ export default function PortfolioPage() {
         </p>
       </section>
 
-      <section className="space-y-4 overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.95)]">
-        <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black/70">
-          <div className="absolute -inset-10 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.45),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(16,185,129,0.35),_transparent_55%)] opacity-90 blur-3xl" />
-          <Image
-            src="/globe.svg"
-            alt="Collection of web projects"
-            fill
-            className="relative object-contain p-6 animate-float-slow"
-          />
-          <div className="pointer-events-none absolute inset-x-4 bottom-3 flex items-center justify-between text-[11px] text-zinc-200">
-            <span>{portfolioCopy.highlight.caption}</span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-black/70 px-3 py-1 text-[10px] uppercase tracking-wide">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              {portfolioCopy.highlight.badge}
-            </span>
+      {/* Combined section: Video + Testimonials */}
+      <section className="grid gap-8 md:grid-cols-[1fr_auto] md:items-start">
+        {/* Testimonials on left (desktop), second on mobile */}
+        <div className="order-2 md:order-1 space-y-6">
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
+              {portfolioCopy.testimonials.tag}
+            </p>
+            <h2 className="text-2xl font-semibold text-white md:text-3xl">
+              {portfolioCopy.testimonials.title}
+            </h2>
+            <p className="max-w-2xl text-sm leading-relaxed text-zinc-400 md:text-base">
+              {portfolioCopy.testimonials.description}
+            </p>
+          </div>
+
+          <div className="grid gap-4">
+            {portfolioCopy.testimonials.items.map((item) => (
+              <TestimonialCard
+                key={item.name}
+                label={portfolioCopy.testimonials.cardLabel}
+                quote={item.quote}
+                name={item.name}
+                role={item.role}
+              />
+            ))}
           </div>
         </div>
-        <p className="text-xs text-zinc-500">
-          {portfolioCopy.highlight.note}
-        </p>
-      </section>
 
-      <section className="space-y-8">
-        <div className="space-y-2 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-            {portfolioCopy.testimonials.tag}
-          </p>
-          <h2 className="text-2xl font-semibold text-white md:text-3xl">
-            {portfolioCopy.testimonials.title}
-          </h2>
-          <p className="mx-auto max-w-2xl text-sm leading-relaxed text-zinc-400 md:text-base">
-            {portfolioCopy.testimonials.description}
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {portfolioCopy.testimonials.items.map((item) => (
-            <TestimonialCard
-              key={item.name}
-              label={portfolioCopy.testimonials.cardLabel}
-              quote={item.quote}
-              name={item.name}
-              role={item.role}
-            />
-          ))}
+        {/* Video on right (desktop), first on mobile - Square format */}
+        <div className="order-1 md:order-2 md:sticky md:top-8">
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50 p-4 shadow-[0_24px_90px_rgba(0,0,0,0.95)]">
+            <div className="relative aspect-square w-full md:w-80 lg:w-96 overflow-hidden rounded-xl bg-black/70">
+              <div className="absolute -inset-10 opacity-90 blur-3xl" />
+              <video
+                className="h-full w-full object-cover"
+                src="/about.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+              <div className="pointer-events-none absolute inset-x-4 bottom-3 flex items-center justify-between text-[11px] text-zinc-200">
+                {/* <span>{portfolioCopy.highlight.caption}</span> */}
+                <span className="inline-flex items-center gap-1 rounded-full bg-black/70 px-3 py-1 text-[10px] uppercase tracking-wide">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  {portfolioCopy.highlight.badge}
+                </span>
+              </div>
+            </div>
+            {/* <p className="mt-3 text-xs text-zinc-500">
+              {portfolioCopy.highlight.note}
+            </p> */}
+          </div>
         </div>
       </section>
     </div>

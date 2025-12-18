@@ -61,17 +61,17 @@ export default function ServicesPage() {
             <div className="absolute -inset-10 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.4),_transparent_60%),radial-gradient(circle_at_bottom,_rgba(16,185,129,0.3),_transparent_55%)] opacity-80 blur-3xl" />
             <div className="relative aspect-video w-full max-w-md overflow-hidden rounded-xl border border-white/10 bg-black/70">
               <Image
-                src="/window.svg"
+                src="/services.svg"
                 alt="Service preview interface"
                 fill
-                className="object-contain p-5 animate-float-slow"
+                className="object-cover p-2 animate-float-slow"
               />
               <div className="pointer-events-none absolute inset-x-4 bottom-3 flex items-center justify-between text-[11px] text-zinc-200">
-                <span>{servicesCopy.overview.previewLabel}</span>
+                {/* <span>{servicesCopy.overview.previewLabel}</span>
                 <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-[10px] uppercase tracking-wide">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   {servicesCopy.overview.previewBadge}
-                </span>
+                </span> */}
               </div>
             </div>
           </div>
@@ -92,15 +92,27 @@ export default function ServicesPage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {servicesCopy.cards.map((card) => (
-            <ServiceCard
-              key={card.title}
-              title={card.title}
-              description={card.description}
-              footerNote={servicesCopy.cardFooterNote}
-              footerCta={servicesCopy.cardFooterCta}
-            />
-          ))}
+          <ServiceCard
+            title={servicesCopy.cards[0].title}
+            description={servicesCopy.cards[0].description}
+            footerNote={servicesCopy.cardFooterNote}
+            footerCta={servicesCopy.cardFooterCta}
+            image="/web-dev.png"
+          />
+          <ServiceCard
+            title={servicesCopy.cards[1].title}
+            description={servicesCopy.cards[1].description}
+            footerNote={servicesCopy.cardFooterNote}
+            footerCta={servicesCopy.cardFooterCta}
+            image="/server_deployment.jpg"
+          />
+          <ServiceCard
+            title={servicesCopy.cards[2].title}
+            description={servicesCopy.cards[2].description}
+            footerNote={servicesCopy.cardFooterNote}
+            footerCta={servicesCopy.cardFooterCta}
+            image="/support.jpg"
+          />
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-black/40 px-4 py-4 text-xs text-zinc-300 md:px-6">
@@ -122,17 +134,18 @@ interface ServiceCardProps {
   description: string;
   footerNote: string;
   footerCta: string;
+  image: string;
 }
 
-function ServiceCard({ title, description, footerNote, footerCta }: ServiceCardProps) {
+function ServiceCard({ title, description, footerNote, footerCta, image }: ServiceCardProps) {
   return (
     <article className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 shadow-[0_18px_70px_rgba(0,0,0,0.9)] transition-transform duration-300 hover:-translate-y-1.5 hover:border-blue-500/70 hover:shadow-[0_32px_90px_rgba(37,99,235,0.55)]">
       <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black">
         <Image
-          src="/file.svg"
+          src={image}
           alt={title}
           fill
-          className="object-contain p-6 animate-float-slow"
+          className="object-cover animate-float-slow"
         />
       </div>
       <div className="space-y-2">

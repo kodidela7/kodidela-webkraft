@@ -101,22 +101,22 @@ export default function ContactPage() {
         <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black/70">
           <div className="absolute -inset-10 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.45),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(16,185,129,0.35),_transparent_55%)] opacity-80 blur-3xl" />
           <Image
-            src="/window.svg"
+            src="/contact.svg"
             alt={copy.introVideo.alt}
             fill
-            className="relative object-contain p-6 animate-float-slow"
+            className="relative object-cover animate-float-slow"
           />
           <div className="pointer-events-none absolute inset-x-4 bottom-3 flex items-center justify-between text-[11px] text-zinc-200">
-            <span>{copy.introVideo.caption}</span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-black/70 px-3 py-1 text-[10px] uppercase tracking-wide">
+            {/* <span>{copy.introVideo.caption}</span> */}
+            {/* <span className="inline-flex items-center gap-1 rounded-full bg-black/70 px-3 py-1 text-[10px] uppercase tracking-wide">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
               {copy.introVideo.badge}
-            </span>
+            </span> */}
           </div>
         </div>
-        <p className="mt-4 text-xs text-zinc-500">
+        {/* <p className="mt-4 text-xs text-zinc-500">
           {copy.introVideo.note}
-        </p>
+        </p> */}
       </section>
 
       <section
@@ -297,10 +297,10 @@ export default function ContactPage() {
         <div className="mt-4 relative aspect-video w-full overflow-hidden rounded-xl bg-black/70">
           <div className="absolute -inset-10 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.45),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(16,185,129,0.35),_transparent_55%)] opacity-80 blur-3xl" />
           <Image
-            src="/file.svg"
+            src="/coming-soon.svg"
             alt={copy.newsletter.videoAlt}
             fill
-            className="relative object-contain p-6 animate-float-slow"
+            className="relative object-cover p-0 animate-float-slow"
           />
         </div>
       </section>

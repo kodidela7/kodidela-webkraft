@@ -106,11 +106,8 @@ export default function Home() {
                   playsInline
                 />
                 <div className="pointer-events-none absolute inset-x-4 bottom-3 flex items-center justify-between text-[11px] text-zinc-100">
-                  <span>Live app / dashboard preview</span>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-black">
-                    <span className="h-1.5 w-1.5 rounded-full bg-black" />
-                    3D mock
-                  </span>
+
+
                 </div>
               </div>
             </div>
@@ -253,7 +250,7 @@ function ServiceTabs() {
       name: homeCopy.buildSection.tabs.web.name,
       title: homeCopy.buildSection.tabs.web.title,
       description: homeCopy.buildSection.tabs.web.description,
-      image: "/globe.svg",
+      image: "/web-dev.png",
       icon: (props: any) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -275,7 +272,7 @@ function ServiceTabs() {
       name: homeCopy.buildSection.tabs.devops.name,
       title: homeCopy.buildSection.tabs.devops.title,
       description: homeCopy.buildSection.tabs.devops.description,
-      image: "/window.svg",
+      image: "/devops.png",
       icon: (props: any) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -297,7 +294,7 @@ function ServiceTabs() {
       name: homeCopy.buildSection.tabs.support.name,
       title: homeCopy.buildSection.tabs.support.title,
       description: homeCopy.buildSection.tabs.support.description,
-      image: "/file.svg",
+      image: "/support.jpg",
       icon: (props: any) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -327,8 +324,8 @@ function ServiceTabs() {
             type="button"
             onClick={() => setActiveTab(tab.id)}
             className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 transition ${activeTab === tab.id
-                ? "border-zinc-700 bg-white text-black shadow-sm"
-                : "border-zinc-800 bg-black/70 text-zinc-300 hover:border-zinc-600 hover:bg-zinc-900"
+              ? "border-zinc-700 bg-white text-black shadow-sm"
+              : "border-zinc-800 bg-black/70 text-zinc-300 hover:border-zinc-600 hover:bg-zinc-900"
               }`}
           >
             <tab.icon
@@ -352,7 +349,7 @@ function ServiceTabs() {
                 src={activeTabData.image}
                 alt={activeTabData.title}
                 fill
-                className="object-contain p-6 animate-float-slow"
+                className="object-cover animate-float-slow"
               />
             </div>
             <div className="space-y-3 text-sm text-zinc-200">

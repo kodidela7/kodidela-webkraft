@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "Kodidela Webkraft | Full-Stack Developer Portfolio",
   description:
     "Professional full-stack development, DevOps, and maintenance services. Build, deploy, and scale high-quality web and software solutions.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

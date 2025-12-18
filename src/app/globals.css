@@ -1,5 +1,5 @@
 @import "tailwindcss";
- 
+
 :root {
   --background: #020617;
   --foreground: #e5e7eb;
@@ -38,21 +38,25 @@ body {
 }
 
 @keyframes float-slow {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
 }
 
 @keyframes glow-soft {
+
   0%,
   100% {
     opacity: 0.45;
     transform: translate3d(0, 0, 0);
   }
+
   50% {
     opacity: 0.95;
     transform: translate3d(0, -6px, 0);
@@ -64,6 +68,7 @@ body {
     opacity: 0;
     transform: translateY(16px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
