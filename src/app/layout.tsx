@@ -6,6 +6,7 @@ import { AppShell } from "@/components/app-shell";
 import { ReferralTracker } from "@/components/referral-tracker";
 import { VisitorTracker } from "@/components/visitor-tracker";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
         <LanguageProvider>
           <AppShell>{children}</AppShell>
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
